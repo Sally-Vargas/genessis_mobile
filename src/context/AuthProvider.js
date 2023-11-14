@@ -2,8 +2,10 @@ import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+
+function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [mode,setMode] = useState('dark')
 
   const login = (userData) => {
     // Lógica para iniciar sesión y establecer el usuario en el estado
@@ -15,13 +17,22 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const changeMode = (modeData) => {
+    setMode(modeData)
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, mode, login, logout, changeMode }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-export function useAuth() {
+function useAuth() {
   return useContext(AuthContext);
+}
+
+export {
+  useAuth,
+  AuthProvider
 }

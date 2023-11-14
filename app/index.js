@@ -1,32 +1,22 @@
 // Alguno de tus componentes donde necesitas la autenticación
 
-import { StyleSheet, View, Text, Button } from 'react-native';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { StyleSheet, View, Text, Button } from "react-native";
+import { Link, useLocalSearchParams } from "expo-router";
 
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from "../src/context/AuthProvider";
+import LoginPage from "../src/pages/Login";
+import HomePage from "../src/pages/home";
 
 export default function HomeScreen() {
   const { user, login, logout } = useAuth();
 
-  return (
-    <View>
-      {user ? (
-        <>
-          <Text>Bienvenido, {user.username}!</Text>
-          <Button title="Cerrar Sesión" onPress={logout} />
-        </>
-      ) : (
-        <>
-          <Text>Por favor inicia sesión</Text>
-          <Button title="Iniciar Sesión" onPress={() => login({ username: 'usuario' })} />
-        </>
-      )}
-    </View>
-  );
+  return <View>{
+    user ? 
+    <HomePage /> 
+    : 
+    <LoginPage />
+    }</View>;
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {

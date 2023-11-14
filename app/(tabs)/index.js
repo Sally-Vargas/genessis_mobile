@@ -1,81 +1,22 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
 import { Tabs } from "expo-router/tabs";
+import { useEffect, useState } from "react";
+import * as Font from 'expo-font';
+import { clientes } from "../../src/db/database";
 
-const clientes = [
-  {
-    name: "vanessa le puche",
-    direction: "le tonch 109",
-    colonia: "Nuevo Escobedo",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "pata",
-    direction: "patata 101",
-    colonia: "Nuevo Escobedo",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "le piche",
-    direction: "la pinchitas 79",
-    colonia: "Nuevo Escobedo",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "vanessa",
-    direction: "le tonch 109",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "pata",
-    direction: "patata 101",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "le piche",
-    direction: "la pinchitas 79",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "vanessa",
-    direction: "le tonch 109",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "pata",
-    direction: "patata 101",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "le piche",
-    direction: "la pinchitas 79",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "vanessa",
-    direction: "le tonch 109",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "pata",
-    direction: "patata 101",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla"],
-  },
-  {
-    name: "le piche",
-    direction: "la pinchitas 79",
-    colonia: "CROC",
-    producto: ["pomada", "mascarilla", "gel ajo"],
-  },
-];
+// fetch('https://mywebsite.com/endpoint/', {
+//   method: 'POST',
+//   headers: {
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify({
+//     firstParam: 'yourValue',
+//     secondParam: 'yourOtherValue',
+//   }),
+// });
+
 
 const componentClient = (
   { name = "", direction = "", colonia = "", producto = [] },
@@ -84,11 +25,11 @@ const componentClient = (
     <View key={"card-"+index} style={styles.clientList}>
       <Text style={styles.lineText}>Nombre: {name}</Text>
       <View style={styles.lineText}>
-        <Text>calle: {direction}</Text>
-        <Text>colonia: {colonia}</Text>
+        <Text>Calle: {direction}</Text>
+        <Text>Colonia: {colonia}</Text>
       </View>
       <View style={styles.lineText}>
-        <Text>productos:[{producto.length}]
+        <Text>Productos:[{producto.length}]
           {producto.join("").length >= 15
             ? producto.join(" ").slice(0, 13) + "..."
             : producto.join(" ")}
@@ -106,6 +47,21 @@ const componentClient = (
 );
 
 export default function HomePage() {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadCustomFont() {
+      await Font.loadAsync({
+        'mi-fuente': require('../../src/font/PixelifySans-Regular.ttf'), // Reemplaza con la ubicación de tu archivo de fuente
+      });
+      setFontLoaded(true);
+    }
+
+    loadCustomFont();
+  }, []);
+  if (!fontLoaded) {
+    return null; // Puedes mostrar una pantalla de carga aquí
+  }
   return (
     <ScrollView style={styles.clientCard}>
       {clientes.map(componentClient)}
@@ -116,17 +72,17 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   clientCard: {
     flex: 1,
+    minWidth:"100%",
     flexDirection: "column",
     flexWrap: "wrap",
+    alignContent:"stretch",
     gap: 5,
     padding: 12,
   },
   clientList: {
     flex: 1,
     flexDirection: "column",
-    flexWrap: "wrap",
-    alignItems:"stretch",
-    alignSelf:"stretch",
+    flexWrap: "nowrap",
     justifyContent:"center",
     gap: 5,
     padding: 24,
@@ -135,8 +91,9 @@ const styles = StyleSheet.create({
     width:"100%",
     flex: 1,
     flexDirection: "row",
-    alignItems:"stretch",
-    alignContent:"stretch",
+    flexWrap: "wrap",
     gap:5,
+    // fontFamily: 'mi-fuente',
+    // fontSize: 24
   }
 });

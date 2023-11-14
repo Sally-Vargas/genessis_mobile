@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../src/context/AuthProvider";
 
 export default function Prueba() {
   // const { user } = useAuth()
