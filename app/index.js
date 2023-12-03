@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
 
 import { useAuth } from "../src/context/AuthProvider";
-import LoginPage from "../src/pages/Login";
+import LoginPage from "../src/pages/login/Login";
 import HomePage from "../src/pages/home";
 
 export default function HomeScreen() {

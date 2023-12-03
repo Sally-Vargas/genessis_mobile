@@ -1,11 +1,11 @@
 import { Button, Text, View } from "react-native";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { Tabs } from "expo-router";
-import LoginPage from "../pages/Login";
+import LoginPage from "../login/Login";
 
 export default function NavigatorLogged() {
     const { user, login, logout } = useAuth();
-
+    
   return (
     <>
     {

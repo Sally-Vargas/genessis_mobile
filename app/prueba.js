@@ -1,25 +1,33 @@
 import { Link } from "expo-router";
 import { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../src/context/AuthProvider";
+import manageUser from "../src/models/manageUser";
 
 export default function Prueba() {
-  // const { user } = useAuth()
+  const { user, logout } = useAuth();
+  const handleLogout = async () =>{
+    const User = manageUser()
+    User.deleteLogin()
+    logout()
+  } 
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
+        <Text style={styles.title}>Hello: {JSON.stringify(user)}</Text>
         <Link href="/">inicio</Link>
+        <Text>jwt:{user.jwt||'no deberia estar logeado'}</Text>
+        <Button title="Cerrar Sesión" onPress = {handleLogout}></Button>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
     padding: 24,
   },
   main: {

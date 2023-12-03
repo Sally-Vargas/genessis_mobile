@@ -1,26 +1,27 @@
+import axios from "axios";
+
 const apiUrl = process.env.EXPO_PUBLIC_SERVER_URL;
 
 const fetchData = async ({ url, method = "GET", headers = {}, body = {} }) => {
+  const URL = apiUrl + url;
+  const options = {
+    method,
+    url,
+    baseURL:apiUrl,
+    data: body,
+    headers: {
+      ...headers
+    },
+  }
   try {
-    const response = await fetch(apiUrl + url, {
-      method,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        ...headers,
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      throw new Error("Hubo un problema con la solicitud.");
-    }
-
-    return response.json();
+    console.log(options)
+    const response = await axios(URL, options);
+    console.log(response)
+    if (response.data.error) throw new Error("Response.error Hubo un problema con la solicitud.",response.data.msj);
+    return response.data;
   } catch (error) {
-
-    throw new Error(error);
-
+    console.log(error);
+    // Si deseas propagar el error al lugar donde se llama a fetchData, puedes lanzarlo nuevamente
   }
 };
 

@@ -1,4 +1,7 @@
 import { createContext, useContext, useState } from 'react';
+// import manageUser from '../models/manageUser';
+
+// const User = manageUser()
 
 const AuthContext = createContext();
 
@@ -10,10 +13,12 @@ function AuthProvider({ children }) {
   const login = (userData) => {
     // Lógica para iniciar sesión y establecer el usuario en el estado
     setUser(userData);
+    
   };
 
   const logout = () => {
     // Lógica para cerrar sesión y establecer el usuario en null
+    
     setUser(null);
   };
 

@@ -3,7 +3,7 @@ import { Link, useLocalSearchParams } from "expo-router";
 import { Tabs } from "expo-router/tabs";
 import { useEffect, useState } from "react";
 import * as Font from 'expo-font';
-import { clientes } from "../../src/db/database";
+import { clientes } from "../../src/services/db/database";
 
 // fetch('https://mywebsite.com/endpoint/', {
 //   method: 'POST',
@@ -52,7 +52,7 @@ export default function HomePage() {
   useEffect(() => {
     async function loadCustomFont() {
       await Font.loadAsync({
-        'mi-fuente': require('../../src/font/PixelifySans-Regular.ttf'), // Reemplaza con la ubicación de tu archivo de fuente
+        'mi-fuente': require('../../src/assets/font/PixelifySans-Regular.ttf'), // Reemplaza con la ubicación de tu archivo de fuente
       });
       setFontLoaded(true);
     }
